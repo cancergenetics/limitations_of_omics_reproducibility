@@ -1,0 +1,21 @@
+name: omics_reproducibility_limits
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.8
+  - numpy
+  - pandas
+  - matplotlib
+  - seaborn
+  - dateutils
+  - statsmodels
+  - notebook
+  - xlsxwriter
+  - requests
+  - beautifulsoup4
+  - matplotlib-venn
+  - pip
+  - pip: 
+    - cptac
+variables:
+  DATA_PATH: G:\My Drive\external_data
