@@ -20,7 +20,9 @@ mpl.rcParams.update({
     'legend.edgecolor': 'white',
     'legend.loc': 'best',
     'legend.frameon':True,
-    'legend.framealpha': 0.9
+    'legend.framealpha': 0.9,
+    'svg.fonttype': "none",
+    'mathtext.bf': 'Arial:bold'
 })
 
     

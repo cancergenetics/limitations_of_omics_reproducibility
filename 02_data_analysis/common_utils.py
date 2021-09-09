@@ -38,7 +38,7 @@ def dataframe_from_dict(factors, *dict_args, repeat_factor=1, interchange_factor
     #to print the dataframe 
     dataframe = dataframe.pivot(index='Data', columns='Factor', values='R-squared').reset_index()
     dataframe[protein_count] = dataframe['Data'].map(dict_args[-1])
-    display(dataframe)
+    display( HTML( dataframe.to_html().replace("\\n","<br>") ) )
     #to plot the data along with the protein count used for the analysis 
     dataframe['Data'] = r'$\mathbf{' + dataframe['Data'] + '}$' +'\n' + '(N=' + dataframe[protein_count].astype(int).astype(str) + ')'
     dataframe.drop(columns=protein_count, inplace=True)    
