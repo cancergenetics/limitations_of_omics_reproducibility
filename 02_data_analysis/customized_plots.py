@@ -26,6 +26,7 @@ def draw_boxplot(ax, x, y, args, stratify=True):
                capprops={'linewidth': 0}, boxprops={'facecolor': args.palette[0], 'linewidth': 0})
   
     ax.set_title(args.title, weight='bold', y=1.05, size=11)
+    ax.xaxis.labelpad = 10
     medians = dataframe.groupby(['deciles'])[y.name].median().round(2)
     for xtick in ax.get_xticks():        
         ax.text(xtick, medians.iloc[xtick] + 0.025, medians.iloc[xtick], horizontalalignment='center',size='9',color='black')
@@ -36,7 +37,7 @@ def draw_boxplot(ax, x, y, args, stratify=True):
                                prop=dict(fontsize='10', color='black'))
         at.patch.set_edgecolor('white')
         at.patch.set_facecolor('white')
-        at.patch.set_alpha(0.8)
+        at.patch.set_alpha(1)
         
         ax.add_artist(at)
     customise_plot(ax, args)
@@ -44,20 +45,20 @@ def draw_boxplot(ax, x, y, args, stratify=True):
 def draw_dotplot(ax, x, y, data, hue, order, args, hue_order=None, jitter=False):
     sns.stripplot(x=x, y=y, data=data, hue=hue, ax=ax, order=order, palette=args.palette, s=7, hue_order=hue_order, jitter=jitter)
     if(args.show_legend):
-        ax.legend(title='Feature', title_fontsize='medium', facecolor='white', 
+        ax.legend(title='Feature', title_fontsize='medium', facecolor='white', framealpha=1,
                   bbox_to_anchor = args.anchor_legend_at)._legend_box.align = "left"
     customise_plot(ax, args)
     
 def draw_ranged_dotplot(ax, x, y, complex_subunits, args):
-    dataframe = cu.stratify_into_deciles(x, y, complex_subunits)
-    dataframe = dataframe.groupby(['Decile_Altered', 'ComplexSubunit']).mean().reset_index()    
+    dataframe = cu.stratify_into_deciles(x, y, complex_subunits)   
     sns.scatterplot(x='Decile_Altered', y = y.name, data=dataframe, hue='ComplexSubunit', palette=args.palette[:2], s=60, ax=ax, zorder=4) 
     dataframe = dataframe.pivot(index='Decile_Altered', columns='ComplexSubunit', values=y.name)
     ax.vlines(dataframe.index.values, dataframe[True], dataframe[False], lw=1.5, colors=args.palette[2], zorder=2)    
     if(not args.show_legend): 
         ax.get_legend().remove()
     else: 
-        ax.legend(title='Protein Complex\nSubunit?', title_fontsize='medium', bbox_to_anchor = (-0.35, 1))._legend_box.align = "left"
+        ax.legend(title='Protein Complex\nSubunit?', title_fontsize='medium', framealpha=1, facecolor='white', bbox_to_anchor = (-0.35, 1))._legend_box.align = "left"
     ax.set_title(args.title, weight='bold', y=1.05, size=11)
+    ax.xaxis.labelpad = 10
     ax.set(ylim=(0.075, 0.7))
     customise_plot(ax, args)

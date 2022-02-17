@@ -14,10 +14,12 @@ ipython_config.py
 
 # Do not store figures
 /figures/
+/03_figures_presentation/
 
 # Do not add data or processed data
 /data/
 /local_data/processed/
+
 
 .DS_Store
 

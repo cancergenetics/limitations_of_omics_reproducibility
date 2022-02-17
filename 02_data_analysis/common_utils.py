@@ -2,7 +2,6 @@ import os, re
 import numpy as np
 import pandas as pd 
 from IPython.display import display, HTML
-from pandas.api.types import CategoricalDtype
 
 def get_matched_index(x1, x2):
     common_proteins = x1.index[x1.index.isin(x2.index)]
@@ -12,16 +11,14 @@ def stratify_into_deciles(x, y, complex_subunits=[]):
     x_subset, y_subset = get_matched_index(x, y)
     dataframe = pd.DataFrame('', index=x_subset.index, columns=['maximum', 'deciles'])
     dataframe['maximum'] = pd.qcut(x_subset, 10).apply(lambda x: round(x.right, 2))
-    decile_labels = ['01st', '02nd', '03rd', '04th', '05th', '06th', '07th', '08th', '09th', '10th']
-    decile_categories = CategoricalDtype(categories=decile_labels, ordered=True)
-    dataframe['deciles'] = pd.qcut(x_subset, 10, labels = decile_labels).astype(decile_categories)
+    dataframe['deciles'] = pd.qcut(x_subset, 10, labels = False) + 1
     dataframe = dataframe.sort_values(by='deciles')
     dataframe['Decile_Altered'] = dataframe['deciles'].astype(str) +  '\n('+  dataframe['maximum'].astype(str) + ')'
     dataframe = pd.concat([dataframe, x_subset, y_subset], axis=1)
     if(len(complex_subunits) > 0):
         dataframe['ComplexSubunit'] = [True if x in complex_subunits else False for x in dataframe.index] 
-        dataframe = dataframe.groupby(by=['Decile_Altered', 'ComplexSubunit']).mean()
-        dataframe.reset_index(inplace=True)    
+        dataframe = dataframe.groupby(by=['Decile_Altered','ComplexSubunit']).mean()       
+        dataframe = dataframe.reset_index().sort_values('deciles').drop(columns='deciles')
     return dataframe
 
 def dataframe_from_dict(factors, *dict_args, repeat_factor=1, interchange_factor_data=False):

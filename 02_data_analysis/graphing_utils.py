@@ -10,10 +10,10 @@ mpl.rcParams.update({
     'axes.labelpad': 6.0,
     'axes.linewidth':0.8,
     'font.size':9,
-    'axes.labelsize':10,
+    'axes.labelsize':9,
     'legend.fontsize':9,
-    'xtick.labelsize':8,
-    'ytick.labelsize':8,
+    'xtick.labelsize':9,
+    'ytick.labelsize':9,
     'lines.linewidth':1,
     'figure.dpi': 100,
     'lines.linewidth':1,
@@ -53,5 +53,6 @@ def get_color(name='grey'):
         'black': '#000',
         'denim-blue': '#1864aa',
         'dark-sky-blue': '#5ba3cf',
-        'light-blue': '#86bcdc'
+        'light-blue': '#86bcdc',
+        'light-orange': '#EABA53',
     }[name]
