@@ -18,7 +18,7 @@ def draw_histogram(ax, replicates_cor, args, ymax=0.9):
             horizontalalignment='left', size='9', color='black', weight='normal')
     customise_plot(ax, args)
     
-def draw_boxplot(ax, x, y, args, stratify=True):
+def draw_boxplot(ax, x, y, args, stratify=True, computed_cor=None):
     dataframe = cu.stratify_into_deciles(x, y)    
     sns.boxplot(y=y.name, x='Decile_Altered', data=dataframe, showfliers=False, ax=ax,
                medianprops={'color':'black', 'linewidth':1.25, 'linestyle': '-'},
@@ -31,7 +31,11 @@ def draw_boxplot(ax, x, y, args, stratify=True):
     for xtick in ax.get_xticks():        
         ax.text(xtick, medians.iloc[xtick] + 0.025, medians.iloc[xtick], horizontalalignment='center',size='9',color='black')
     count = len(dataframe)
-    ax.text(xtick, ax.get_ylim()[1] , 'N = '+ str(count), horizontalalignment='center',size='10', color='black')   
+    if(computed_cor!=None):
+        ax.text(xtick, ax.get_ylim()[1] , 'N = '+ str(count) + '\n$R_{avg}$ = ' + str(computed_cor), 
+                horizontalalignment='right',size='10', color='black')   
+    else:
+        ax.text(xtick, ax.get_ylim()[1] , 'N = '+ str(count), horizontalalignment='center',size='10', color='black')
     if(args.r2!=None):
         at = AnchoredText("$\mathregular{R^2}$ = "+ str(round(args.r2, 2))+"%", loc="lower right", frameon=True, 
                                prop=dict(fontsize='10', color='black'))
