@@ -38,6 +38,8 @@ def dataframe_from_dict(factors, *dict_args, repeat_factor=1, interchange_factor
     display( HTML( dataframe.to_html().replace("\\n","<br>") ) )
     #to plot the data along with the protein count used for the analysis 
     dataframe['Data'] = r'$\mathbf{' + dataframe['Data'] + '}$' +'\n' + '(N=' + dataframe[protein_count].astype(int).astype(str) + ')'
+    dataframe['Data'].replace('$\mathbf{Transcriptomic Reproducibility}$\n(N=10036)',     
+                              '$\mathbf{Transcriptomic}$\n$\mathbf{Reproducibility}$\n$\mathbf{(CCLE-Klijn)}$\n(N=10036)', inplace=True) 
     dataframe.drop(columns=protein_count, inplace=True)    
     dataframe = pd.melt(dataframe, id_vars='Data').rename(columns={'value':'R-squared'})
     dataframe["Factor"] = pd.Categorical(dataframe["Factor"], categories=factors) if(not interchange_factor_data) else \

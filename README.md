@@ -15,7 +15,7 @@ Notebook / R Script                           | Figures        | Description    
 5_protein_predictability_analysis             | Figure S4      | Analyse the predictability of proteins with respect to protein reproducibility |
 6a_factors_affecting_protein_reproducibility   | Figure 5, S5   | Identify the potential factors affecting protein reproducibility |
 6b_factors_affecting_mRNA_protein_correlation   | Figure S6   | Identify the whether the factors identified above affect mRNA-protein correlation |
-7_transcriptomic_replicate_analysis           | Figure 6       | Analyse the variation in transcriptomic reproducibility and its impact on mRNA-protein correlation |
+7_transcriptomic_replicate_analysis           | Figure 6, S5E   | Analyse the variation in transcriptomic reproducibility and its impact on mRNA-protein correlation |
 8_pathway_enrichment_analysis                 | Figure 7, S7   | Perform KEGG Pathway enrichment analysis using Mann-Whitney U test |
           
      

@@ -18,8 +18,10 @@ def draw_histogram(ax, replicates_cor, args, ymax=0.9):
             horizontalalignment='left', size='9', color='black', weight='normal')
     customise_plot(ax, args)
     
-def draw_boxplot(ax, x, y, args, stratify=True, computed_cor=None):
-    dataframe = cu.stratify_into_deciles(x, y)    
+def draw_boxplot(ax, x, y, args, stratify=True):
+    dataframe = cu.stratify_into_deciles(x, y)  
+    global_median = dataframe[y.name].median()
+    ax.hlines(global_median, colors='#999999', linestyle=':', linewidth=1.5, xmin=-1, xmax =10, zorder=10)
     sns.boxplot(y=y.name, x='Decile_Altered', data=dataframe, showfliers=False, ax=ax,
                medianprops={'color':'black', 'linewidth':1.25, 'linestyle': '-'},
                whiskerprops={'color': args.palette[0], 'linewidth':1.5, 'linestyle': '--'}, 
@@ -28,14 +30,14 @@ def draw_boxplot(ax, x, y, args, stratify=True, computed_cor=None):
     ax.set_title(args.title, weight='bold', y=1.05, size=11)
     ax.xaxis.labelpad = 10
     medians = dataframe.groupby(['deciles'])[y.name].median().round(2)
-    for xtick in ax.get_xticks():        
-        ax.text(xtick, medians.iloc[xtick] + 0.025, medians.iloc[xtick], horizontalalignment='center',size='9',color='black')
+    for xtick in ax.get_xticks():  
+        if(medians.iloc[xtick] > global_median):
+            ax.text(xtick, medians.iloc[xtick] + 0.025, medians.iloc[xtick], horizontalalignment='center',size='9',color='black')
+        else:
+            ax.text(xtick, medians.iloc[xtick] - 0.075, medians.iloc[xtick], horizontalalignment='center',size='9',color='black')
     count = len(dataframe)
-    if(computed_cor!=None):
-        ax.text(xtick, ax.get_ylim()[1] , 'N = '+ str(count) + '\n$R_{avg}$ = ' + str(computed_cor), 
-                horizontalalignment='right',size='10', color='black')   
-    else:
-        ax.text(xtick, ax.get_ylim()[1] , 'N = '+ str(count), horizontalalignment='center',size='10', color='black')
+    ax.text(xtick, ax.get_ylim()[1] , 'N = '+ str(count), horizontalalignment='center',size='10', color='black')
+    
     if(args.r2!=None):
         at = AnchoredText("$\mathregular{R^2}$ = "+ str(round(args.r2, 2))+"%", loc="lower right", frameon=True, 
                                prop=dict(fontsize='10', color='black'))
