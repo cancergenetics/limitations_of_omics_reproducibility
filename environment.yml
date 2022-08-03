@@ -7,7 +7,6 @@ dependencies:
   - pandas
   - matplotlib
   - seaborn
-
   - statsmodels
   - notebook
   - xlsxwriter
