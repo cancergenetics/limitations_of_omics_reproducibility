@@ -7,15 +7,16 @@ dependencies:
   - pandas
   - matplotlib
   - seaborn
-  - dateutils
+
   - statsmodels
   - notebook
   - xlsxwriter
   - requests
   - beautifulsoup4
-  - matplotlib-venn
   - pip
   - pip: 
     - cptac
+    - dateutils
+    - matplotlib-venn
 variables:
   DATA_PATH: G:\My Drive\external_data
