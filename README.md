@@ -39,7 +39,7 @@ standardised_pipeline_utils.py         | Contains standardised pipeline applied 
 ### To run Jupyter notebooks:
 * Obtain external data - sources are listed in data_sources
 * Set path to external data in environment.yml (DATA_PATH)
-  * Note: this can also be set in the activate environment with: `conda env config vars set external_data=directory_of_choice`
+  * Note: this can also be set in the activated environment with: `conda env config vars set external_data=directory_of_choice`
 * Create [conda](https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#creating-an-environment-from-an-environment-yml-file) environment from the environment.yml file: `conda env create -f environment.yml`
 * Activate conda environment: `conda activate omics_reproducibility_limits`
 * Start notebooks: `jupyter notebook`
